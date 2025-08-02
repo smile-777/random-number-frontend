@@ -8,14 +8,21 @@ function App() {
   const fetchRandomNumber = async () => {
     setLoading(true);
     try {
-      // В продакшене замените на ваш бэкенд URL
-      const response = await fetch(
-        "https://random-api-qglz.onrender.com/random"
-      );
+      const response = await fetch("https://ваш-бэкенд.onrender.com/random", {
+        mode: "cors", // Явно указываем CORS режим
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok)
+        throw new Error(`HTTP error! status: ${response.status}`);
+
       const data = await response.json();
       setRandomNumber(data.number);
     } catch (error) {
-      console.error("Error fetching random number:", error);
+      console.error("Error:", error);
+      alert("Не удалось получить число. Проверьте консоль для деталей.");
     } finally {
       setLoading(false);
     }
