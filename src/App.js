@@ -9,7 +9,9 @@ function App() {
     setLoading(true);
     try {
       // В продакшене замените на ваш бэкенд URL
-      const response = await fetch("https://random-api-qglz.onrender.com");
+      const response = await fetch(
+        "https://random-api-qglz.onrender.com/random"
+      );
       const data = await response.json();
       setRandomNumber(data.number);
     } catch (error) {
