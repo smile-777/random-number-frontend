@@ -1,22 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 function App() {
+  const [randomNumber, setRandomNumber] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const fetchRandomNumber = async () => {
+    setLoading(true);
+    try {
+      // В продакшене замените на ваш бэкенд URL
+      const response = await fetch(
+        "https://your-backend-service.onrender.com/random"
+      );
+      const data = await response.json();
+      setRandomNumber(data.number);
+    } catch (error) {
+      console.error("Error fetching random number:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Random Number Generator</h1>
+        <button onClick={fetchRandomNumber} disabled={loading}>
+          {loading ? "Loading..." : "Get Random Number"}
+        </button>
+        {randomNumber !== null && (
+          <div className="result">
+            <h2>Your random number:</h2>
+            <p>{randomNumber}</p>
+          </div>
+        )}
       </header>
     </div>
   );
