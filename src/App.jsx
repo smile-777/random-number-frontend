@@ -10,7 +10,9 @@ function App() {
   const fetchRandomNumber = async () => {
     setLoading(true);
     try {
-      const response = await fetch("https://ваш-бэкенд.onrender.com/random");
+      const response = await fetch(
+        "https://random-api-qglz.onrender.com/random"
+      );
       if (!response.ok) throw new Error("Ошибка запроса");
       const data = await response.json();
       setRandomNumber(data.number);
@@ -25,7 +27,9 @@ function App() {
   const fetchHistory = async () => {
     setHistoryLoading(true);
     try {
-      const response = await fetch("https://ваш-бэкенд.onrender.com/history");
+      const response = await fetch(
+        "https://random-api-qglz.onrender.com/history"
+      );
       if (!response.ok) throw new Error("Ошибка запроса");
       const data = await response.json();
       setHistory(data.history);
